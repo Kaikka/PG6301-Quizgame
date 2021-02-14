@@ -23,21 +23,28 @@ function displayQuiz(quiz) {
 
     let html = `<p class="question">Question: ${quiz.question}</p>`;
 
-    //quiz.answers.forEach(e => html += `<div>${e}</div>`);
-
-    // this loop should be sexified
-    for (let i = 0; i < quiz.answers.length; i++) {
-        let onclick = "";
-        if (quiz.correctAnswerIndex === i) {
-            onclick = "alert(\"Correct!\");  getQuiz();";
-        } else {
-            onclick = "alert(\"Wrong!\");";
-        }
-        html+= `<div class="answer" onclick='${onclick}'>${quiz.answers[i]}</div>`;
-    }
+    quiz.answers.forEach(e => html+= getAnswers(e, quiz.answers.indexOf(e) === quiz.correctAnswerIndex));
 
     quizDiv.innerHTML = html;
 }
+
+// maybe not send the whole quiz?
+function getAnswers(answer, correct) {
+
+    let html = "";
+    let onclick;
+
+    if (correct) {
+        onclick = "alert(\"Correct!\");  getQuiz();";
+    } else {
+        onclick = "alert(\"Wrong!\");";
+    }
+
+    html += `<div class="answer" onclick='${onclick}'>${answer}</div>`;
+
+    return html;
+}
+
 
 function getQuiz() {
 
@@ -49,6 +56,7 @@ function getQuiz() {
     }
 
     const quiz = quizzes[index];
+    currentQuizIndex = index;
 
     displayQuiz(quiz);
 }
