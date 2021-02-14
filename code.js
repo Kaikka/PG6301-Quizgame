@@ -33,11 +33,7 @@ function getAnswers(answer, correct) {
     let html = "";
     let onclick;
 
-    if (correct) {
-        onclick = "alert(\"Correct!\");  getQuiz();";
-    } else {
-        onclick = "alert(\"Wrong!\");";
-    }
+    onclick = correct ? "alert(\"Correct!\");  getQuiz();" : "alert(\"Wrong!\");";
 
     html += `<div class="answer" onclick='${onclick}'>${answer}</div>`;
 
