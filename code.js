@@ -28,7 +28,6 @@ function displayQuiz(quiz) {
     quizDiv.innerHTML = html;
 }
 
-// maybe not send the whole quiz?
 function getAnswers(answer, correct) {
 
     let html = "";
@@ -44,7 +43,6 @@ function getAnswers(answer, correct) {
 
     return html;
 }
-
 
 function getQuiz() {
 
