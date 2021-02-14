@@ -21,7 +21,9 @@ let currentQuizIndex = -1;
 function displayQuiz(quiz) {
     const quizDiv = document.getElementById("quizDiv");
 
-    let html = `<p class="question">Question: ${quiz.question}</p>`;
+    let html = "";
+
+    html += `<p class="question">Question: ${quiz.question}</p>`;
 
     quiz.answers.forEach(e => html+= getAnswers(e, quiz.answers.indexOf(e) === quiz.correctAnswerIndex));
 
