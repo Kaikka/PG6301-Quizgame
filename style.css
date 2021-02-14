@@ -1,7 +1,11 @@
 /*
 CSS yoinked from Andrea-san :^)
 */
+body {
+    background-color: #b0aba0;
+}
 .container {
+
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -32,4 +36,8 @@ CSS yoinked from Andrea-san :^)
     border: 1px solid #787774;
     border-radius: 5px;
     width: 80%;
+}
+
+.answer:hover {
+    background-color: #d6d4ce;
 }
