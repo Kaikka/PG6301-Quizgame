@@ -10,9 +10,9 @@ const quizzes = [
         correctAnswerIndex: 1
     },
     {
-        question: "2+2?",
-        answers: ["3", "1", "8", "4"],
-        correctAnswerIndex: 3
+        question: "Best football player?",
+        answers: ["Francesco Totti", "Cristiano Ronaldo", "Romario", "Tore André Flo"],
+        correctAnswerIndex: 0
     }
 ];
 
@@ -44,6 +44,7 @@ function getQuiz() {
     let index = Math.floor(Math.random() * quizzes.length);
 
     if (index === currentQuizIndex) {
+        // yoinked from Andrea :^)
         index = (index + 1) % quizzes.length;
     }
 
