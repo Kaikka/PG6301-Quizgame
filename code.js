@@ -31,9 +31,8 @@ function displayQuiz(quiz) {
 function getAnswers(answer, correct) {
 
     let html = "";
-    let onclick;
 
-    onclick = correct ? "alert(\"Correct!\");  getQuiz();" : "alert(\"Wrong!\");";
+    let onclick = correct ? "alert(\"Correct!\");  getQuiz();" : "alert(\"Wrong!\");";
 
     html += `<div class="answer" onclick='${onclick}'>${answer}</div>`;
 
