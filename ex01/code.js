@@ -1,3 +1,4 @@
+/*
 const quizzes = [
     {
         question: "Whats your real main in WoW?",
@@ -54,4 +55,4 @@ function getQuiz() {
     currentQuizIndex = index;
 
     displayQuiz(quiz);
-}
+}*/
