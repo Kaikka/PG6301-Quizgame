@@ -14,13 +14,10 @@ function displayQuiz(quiz) {
 
 function getAnswers(answer, correct) {
 
-    let html = "";
-
     let onclick = correct ? "alert(\"Correct!\"); getQuiz();" : "alert(\"Wrong!\");";
 
-    html += `<div class="answer" onclick='${onclick}'>${answer}</div>`;
+    return `<div class="answer" onclick='${onclick}'>${answer}</div>`;
 
-    return html;
 }
 
 function getQuiz() {
