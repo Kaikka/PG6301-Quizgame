@@ -1,8 +1,17 @@
 import {getRandomQuizzes} from "./quizzes";
 
-function displayQuiz(quiz) {
-    const quizDiv = document.getElementById("quizDiv");
 
+function getAnswers(answer, correct) {
+
+    let onclick = correct ? "alert(\"Correct!\"); EntryPoint.displayNewQuiz();" : "alert(\"Wrong!\");";
+
+    return `<div class="answer" onclick='${onclick}'>${answer}</div>`;
+
+}
+
+function displayQuiz(quiz) {
+
+    const quizDiv = document.getElementById("quizDivId");
     let html = "";
 
     html += `<p class="question">Question: ${quiz.question}</p>`;
@@ -12,28 +21,10 @@ function displayQuiz(quiz) {
     quizDiv.innerHTML = html;
 }
 
-function getAnswers(answer, correct) {
+export function displayNewQuiz() {
 
-    let onclick = correct ? "alert(\"Correct!\"); getQuiz();" : "alert(\"Wrong!\");";
-
-    return `<div class="answer" onclick='${onclick}'>${answer}</div>`;
-
-}
-
-function getQuiz() {
-
-/*    let index = Math.floor(Math.random() * quizzes.length);
-
-    if (index === currentQuizIndex) {
-        // yoinked from Andrea :^)
-        index = (index + 1) % quizzes.length;
-    }
-
-    const quiz = quizzes[index];
-    currentQuizIndex = index;*/
     const quiz = getRandomQuizzes(1)[0];
 
     displayQuiz(quiz);
+    console.log("Displays quiz: " + quiz.question);
 }
-
-getQuiz();
