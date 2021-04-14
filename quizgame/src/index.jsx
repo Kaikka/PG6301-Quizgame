@@ -25,7 +25,7 @@ class App extends React.Component {
         //let onclick = correct ? "alert(\"Correct!\"); this.setState({quiz: getRandomQuizzes(1)[0]});" : "alert(\"Wrong!\");";
         //return <div className="answer" onClick={() => onclick}>{answer}</div>;
 
-        return <div className="answer" onClick={() => this.handleClick(correct)}> {answer} </div>;
+        return <div className="answer" key={answer} onClick={() => this.handleClick(correct)}> {answer} </div>;
     }
 
     render() {
@@ -38,8 +38,6 @@ class App extends React.Component {
                 {quiz.answers.map(e => this.renderAnswerTag(e, quiz.answers.indexOf(e) === quiz.correctAnswerIndex))}
             </>
         )
-        // how can i make this above be a forEach?
-        // how can i remove error from map?
     }
 }
 
