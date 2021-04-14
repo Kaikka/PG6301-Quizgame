@@ -35,13 +35,11 @@ class App extends React.Component {
         return (
             <>
                 <p className='question'>Question: {quiz.question} </p>
-                {this.renderAnswerTag(quiz.answers[0], quiz.correctAnswerIndex === 0)}
-                {this.renderAnswerTag(quiz.answers[1], quiz.correctAnswerIndex === 1)}
-                {this.renderAnswerTag(quiz.answers[2], quiz.correctAnswerIndex === 2)}
-                {this.renderAnswerTag(quiz.answers[3], quiz.correctAnswerIndex === 3)}
+                {quiz.answers.map(e => this.renderAnswerTag(e, quiz.answers.indexOf(e) === quiz.correctAnswerIndex))}
             </>
         )
         // how can i make this above be a forEach?
+        // how can i remove error from map?
     }
 }
 
