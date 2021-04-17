@@ -2,7 +2,8 @@
   "name": "quizgame",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT",
+  "license": "UNLICENSED",
+  "private": "true",
   "babel": {
     "plugins": [
       "@babel/plugin-proposal-class-properties"
@@ -13,8 +14,10 @@
     ]
   },
   "dependencies": {
+    "express": "4.17.1",
     "react": "16.12.0",
     "react-dom": "16.12.0",
+    "react-router": "5.2.0",
     "react-router-dom": "5.2.0"
   },
   "description": "",
@@ -31,6 +34,7 @@
     "jest": "24.9.0",
     "jsdom": "16.4.0",
     "react-addons-test-utils": "15.6.2",
+    "terser-webpack-plugin": "^5.1.1",
     "webpack": "5.33.2",
     "webpack-cli": "^4.6.0",
     "webpack-dev-server": "3.11.2"
@@ -42,8 +46,9 @@
     "testRegex": "tests/.*-test\\.(js|jsx)$"
   },
   "scripts": {
-    "dev": "webpack serve --open --mode development",
     "build": "webpack --mode production",
+    "dev": "yarn build && yarn start",
+    "start": "node src/server/server.js",
     "test": "jest --coverage"
   }
 }
