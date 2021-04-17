@@ -30,10 +30,10 @@
     "enzyme-adapter-react-16": "1.15.5",
     "jest": "24.9.0",
     "jsdom": "16.4.0",
-    "react-addons-test-utils": "16.0.0-alpha",
-    "webpack": "5.11.1",
-    "webpack-cli": "^4.3.1",
-    "webpack-dev-server": "3.11.1"
+    "react-addons-test-utils": "15.6.2",
+    "webpack": "5.33.2",
+    "webpack-cli": "^4.6.0",
+    "webpack-dev-server": "3.11.2"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -42,7 +42,7 @@
     "testRegex": "tests/.*-test\\.(js|jsx)$"
   },
   "scripts": {
-    "dev": "webpack-dev-server --open --mode development",
+    "dev": "webpack serve --open --mode development",
     "build": "webpack --mode production",
     "test": "jest --coverage"
   }
