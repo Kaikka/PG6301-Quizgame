@@ -12,8 +12,13 @@ export class Home extends React.Component {
         return (
             <div>
                 <h2>Quizgame</h2>
-                <p>Welcome to my quizgame uwu :^)</p>
-                <Link to={"/match"}>New match!</Link>
+                <p className={"welcome-text"}>
+                    Welcome to my quizgame uwu :^)
+                </p>
+
+                <div className={"action"}>
+                    <Link to={"/match"}>New match!</Link>
+                </div>
             </div>
         )
     }

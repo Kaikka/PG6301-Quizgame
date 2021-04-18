@@ -16,13 +16,42 @@ const quizzes = [
     }
 ];
 
-export function getRandomQuizzes(numberOfQuizzes) {
+export async function getRandomQuizzes(numberOfQuizzes) {
 
     if(numberOfQuizzes < 1){
-        throw "Invalid number of requested quizzes: " + n;
+        throw "Invalid number of requested quizzes: " + numberOfQuizzes;
     }
 
-    if(numberOfQuizzes > quizzes.length){
+    const url = "https://opentdb.com/api.php?difficulty=easy&type=multiple&category=18&amount=" + numberOfQuizzes;
+    let response;
+    let payload;
+
+    try {
+        response = await fetch(url);
+        payload = await response.json();
+    } catch (err) {
+        return null;
+    }
+
+    if (response.status !== 200) {
+        return null;
+    }
+
+    return payload.results.map(q => {
+
+        const correct = Math.floor(Math.random() * Math.floor(3));
+        const answers = q.incorrect_answers;
+        answers.splice(correct, 0, q.correct_answer);
+
+        return {
+            question: q.question,
+            answers: answers,
+            correctAnswerIndex: correct,
+            id: 0
+        };
+    })
+
+/*    if(numberOfQuizzes > quizzes.length){
         throw "Too many quizzes";
     }
 
@@ -40,6 +69,6 @@ export function getRandomQuizzes(numberOfQuizzes) {
         i++;
     }
 
-    return Array.from(selection).map(e => quizzes[e]);
+    return Array.from(selection).map(e => quizzes[e]);*/
 
 }

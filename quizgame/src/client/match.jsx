@@ -8,7 +8,8 @@ export class Match extends React.Component {
 
         //this.state = {quiz: getRandomQuizzes(1)[0]}
         this.state = {
-            match: null
+            match: null,
+            error: null
         }
     }
 
@@ -16,11 +17,22 @@ export class Match extends React.Component {
         this.startNewMatch();
     }
 
-    startNewMatch = () => {
+    startNewMatch = async () => {
 
-        const quizzes = getRandomQuizzes(3);
+        const quizzes = await getRandomQuizzes(3);
 
-        this.setState({
+/*        this.setState({
+            match: {
+                victory: false,
+                defeat: false,
+                quizzes: quizzes,
+                currentIndex: 0,
+                numberOfQuizzes: quizzes.length
+            }
+        });*/
+        this.setState(!quizzes ? {error: "Error when connecting to server"}
+        : {
+            error: null,
             match: {
                 victory: false,
                 defeat: false,
@@ -36,9 +48,11 @@ export class Match extends React.Component {
         if (correct) {
             if (this.state.match.currentIndex === (this.state.match.numberOfQuizzes - 1)) {
                 //last quiz
+                console.log("You win!")
                 this.setState({match: {victory: true}});
             } else {
                 //go on to next quiz
+                console.log("Correct answer, going to next question.");
                 this.setState(prev => ({
                     match: {
                         currentIndex: prev.match.currentIndex + 1,
@@ -49,6 +63,7 @@ export class Match extends React.Component {
             }
 
         } else {
+            console.log("Wrong answer...");
             this.setState({match: {defeat: true}});
         }
     };
@@ -59,6 +74,10 @@ export class Match extends React.Component {
     }
 
     render() {
+
+        if (this.state.error) {
+            return <h2>{this.state.error}</h2>
+        }
 
         if (!this.state.match) {
             return <h2>Loading...</h2>;

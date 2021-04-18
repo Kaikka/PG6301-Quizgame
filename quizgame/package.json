@@ -9,7 +9,14 @@
       "@babel/plugin-proposal-class-properties"
     ],
     "presets": [
-      "@babel/env",
+      [
+        "@babel/env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ],
       "@babel/react"
     ]
   },
@@ -43,11 +50,15 @@
     "collectCoverageFrom": [
       "src/**/*.(js|jsx)"
     ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/tests/jest-setup.js"
+    ],
+    "testEnvironment": "node",
     "testRegex": "tests/.*-test\\.(js|jsx)$"
   },
   "scripts": {
     "build": "webpack --mode production",
-    "dev": "yarn build && yarn start",
+    "dev": "webpack serve --open --mode development",
     "start": "node src/server/server.js",
     "test": "jest --coverage"
   }
