@@ -4,8 +4,6 @@ import {BrowserRouter, Switch, Route} from "react-router-dom";
 import {Match} from "./match";
 import {Home} from "./home";
 
-console.log("Hello world");
-
 const NotFound = () => {
 
     return (
