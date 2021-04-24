@@ -1,9 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import {BrowserRouter, Switch, Route} from "react-router-dom";
-
 import {Match} from "./match";
 import {Home} from "./home";
+
+console.log("Hello world");
 
 const NotFound = () => {
 
@@ -18,17 +19,15 @@ const NotFound = () => {
 }
 
 const App = () => {
-
     return(
         <BrowserRouter>
             <Switch>
                 <Route exact path={"/"} component={Home} />
                 <Route exact path={"/match"} component={Match} />
-                <Route component={NotFound}/>
+                <Route component={NotFound} />
             </Switch>
         </BrowserRouter>
     )
-
 }
 
 ReactDOM.render(<App/>, document.getElementById("root"));

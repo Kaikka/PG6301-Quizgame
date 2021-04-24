@@ -1,123 +1,114 @@
-import React from "react";
-import {getRandomQuizzes} from "./quizzes";
+import React, {useEffect, useState} from "react";
+/*import getRandomQuizzes from "../server/db/quizzes";*/
 
-export class Match extends React.Component {
+export const Match = () => {
+    const [match, setMatch] = useState(null);
+    const [error, setError] = useState(null);
 
-    constructor(props) {
-        super(props);
+    useEffect(() => {
+        startNewMatch();
+    }, [])
 
-        //this.state = {quiz: getRandomQuizzes(1)[0]}
-        this.state = {
-            match: null,
-            error: null
+    const startNewMatch = async () => {
+        const quizzes = await getRandomQuizzes();
+
+        if (!quizzes) {
+            setError("Error connecting to the server");
+        }
+        setError(null);
+        setMatch({
+            victory: false,
+            defeat: false,
+            quizzes: quizzes,
+            currentIndex: 0,
+            numberOfQuizzes: quizzes.length
+        })
+    }
+
+    const getRandomQuizzes = async () => {
+        const url = "/api/randomQuizzes/3";
+
+        try {
+            let res = await fetch(url);
+            return await res.json();
+        } catch (e) {
+            setError(e);
         }
     }
 
-    componentDidMount() {
-        this.startNewMatch();
-    }
-
-    startNewMatch = async () => {
-
-        const quizzes = await getRandomQuizzes(3);
-
-/*        this.setState({
-            match: {
-                victory: false,
-                defeat: false,
-                quizzes: quizzes,
-                currentIndex: 0,
-                numberOfQuizzes: quizzes.length
-            }
-        });*/
-        this.setState(!quizzes ? {error: "Error when connecting to server"}
-        : {
-            error: null,
-            match: {
-                victory: false,
-                defeat: false,
-                quizzes: quizzes,
-                currentIndex: 0,
-                numberOfQuizzes: quizzes.length
-            }
-        });
-
-    };
-
-    handleClick = (correct) => {
+    const handleClick = (correct) => {
         if (correct) {
-            if (this.state.match.currentIndex === (this.state.match.numberOfQuizzes - 1)) {
+            if (match.currentIndex === (match.numberOfQuizzes - 1)) {
                 //last quiz
                 console.log("You win!")
-                this.setState({match: {victory: true}});
+                setMatch({victory: true});
             } else {
                 //go on to next quiz
                 console.log("Correct answer, going to next question.");
-                this.setState(prev => ({
-                    match: {
-                        currentIndex: prev.match.currentIndex + 1,
-                        quizzes: prev.match.quizzes,
-                        numberOfQuizzes: prev.match.numberOfQuizzes
-                    }
-                }));
+                setMatch({
+                    currentIndex: match.currentIndex + 1,
+                    quizzes: match.quizzes,
+                    numberOfQuizzes: match.numberOfQuizzes
+                });
             }
 
         } else {
             console.log("Wrong answer...");
-            this.setState({match: {defeat: true}});
+            setMatch({defeat: true});
         }
-    };
-
-    renderAnswerTag(answer, correct) {
-
-        return <div className="answer" key={answer} onClick={() => this.handleClick(correct)} tabIndex="0"> {answer} </div>;
     }
 
-    render() {
+ /*   const renderAnswerTag = (answer, correct) => {
 
-        if (this.state.error) {
-            return <h2>{this.state.error}</h2>
-        }
+        return <div className="answer" key={answer} onClick={() => handleClick(correct)} tabIndex="0"> {answer} </div>;
+    }*/
 
-        if (!this.state.match) {
-            return <h2>Loading...</h2>;
-        }
+    if (error) {
+        return <h2>{error}</h2>
+    }
 
-        if (this.state.match.victory) {
-            return (
-                <div className="game-result">
-                    <h2>You Won!</h2>
-                    <div className="action">
-                        <button className="play new-game-button" onClick={this.startNewMatch}>New Match</button>
-                    </div>
-                </div>
-            );
-        }
+    if (!match) {
+        return <h2>Loading...</h2>;
+    }
 
-        if (this.state.match.defeat) {
-            return (
-                <div className="game-result">
-                    <h2>Wrong Answer! You Lost!</h2>
-                    <div className="action">
-                        <button className="play new-game-button" onClick={this.startNewMatch}>New Match</button>
-                    </div>
-                </div>
-            );
-        }
-
-        //const quiz = this.state.quiz;
-
-        const match = this.state.match;
-        const count = "" + (match.currentIndex + 1) + "/" + match.numberOfQuizzes;
-        const quiz = match.quizzes[match.currentIndex];
-
+    if (match.victory) {
         return (
-            <>
-                <p className='question'>Question {count}: {quiz.question} </p>
-                {quiz.answers.map(e => this.renderAnswerTag(e, quiz.answers.indexOf(e) === quiz.correctAnswerIndex))}
-            </>
-        )
+            <div className="game-result">
+                <h2>You Won!</h2>
+                <div className="action">
+                    <button className="play new-game-button" onClick={startNewMatch}>New Match</button>
+                </div>
+            </div>
+        );
+    }
+
+    if (match.defeat) {
+        return (
+            <div className="game-result">
+                <h2>Wrong Answer! You Lost!</h2>
+                <div className="action">
+                    <button className="play new-game-button" onClick={startNewMatch}>New Match</button>
+                </div>
+            </div>
+        );
     }
 
 
+    return (
+        <>
+            <p className='question'>Question: {match.quizzes[match.currentIndex].question} </p>
+            {/*{match.quizzes.answers.map(e => renderAnswerTag(e, match.quizzes.answers.indexOf(e) === match.quizzes.correctAnswerIndex))}*/}
+            {match.quizzes[match.currentIndex].answers.map((answer, index) => (
+                <div
+                    className={"answer"}
+                    key={index}
+                    onClick={() => handleClick(match.quizzes[match.currentIndex].correctAnswerIndex === index)}
+                >
+                    {answer}
+                </div>
+            ))}
+        </>
+    )
 }
+
+
