@@ -36,6 +36,7 @@ body {
     border: 1px solid #787774;
     border-radius: 5px;
     width: 80%;
+    text-align: center;
 }
 
 .answer:hover {

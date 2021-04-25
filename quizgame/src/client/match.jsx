@@ -58,9 +58,8 @@ export const Match = () => {
         }
     }
 
- /*   const renderAnswerTag = (answer, correct) => {
-
-        return <div className="answer" key={answer} onClick={() => handleClick(correct)} tabIndex="0"> {answer} </div>;
+/*    const renderAnswerTag = (answer, correct, index) => {
+        return <div className={"answer"} key={index} onClick={() => handleClick(correct)} tabIndex="0"> {answer} </div>;
     }*/
 
     if (error) {
@@ -93,16 +92,25 @@ export const Match = () => {
         );
     }
 
+    const quiz = match.quizzes[match.currentIndex];
 
+/*    return (
+        <>
+            <p className='question'>Question: {quiz.question} </p>
+            {/!*{match.quizzes.answers.map(e => renderAnswerTag(e, match.quizzes.answers.indexOf(e) === match.quizzes.correctAnswerIndex))}*!/}
+{/!*            {quiz.answers.map((answer, index) =>
+                renderAnswerTag(answer, quiz.correctAnswerIndex === index, index))}*!/}
+                quiz.answers.map
+        </>
+    )*/
     return (
         <>
-            <p className='question'>Question: {match.quizzes[match.currentIndex].question} </p>
-            {/*{match.quizzes.answers.map(e => renderAnswerTag(e, match.quizzes.answers.indexOf(e) === match.quizzes.correctAnswerIndex))}*/}
-            {match.quizzes[match.currentIndex].answers.map((answer, index) => (
+            <p className='question'>Question: {quiz.question} </p>
+            {quiz.answers.map((answer, index) => (
                 <div
                     className={"answer"}
                     key={index}
-                    onClick={() => handleClick(match.quizzes[match.currentIndex].correctAnswerIndex === index)}
+                    onClick={() => handleClick(quiz.correctAnswerIndex === index)}
                 >
                     {answer}
                 </div>
